@@ -1,7 +1,7 @@
 # for_r3
 
 - 
-- __i have sql questions and answers for pre_fs 2 exam.
+- __i have sql questions and answers for pre_fs 2 exam. these are the practice problems given in the test 1.
 - why don't you change your profile.
 - i am from csm-b
 1. __if you find this useful follow me and, i will share huge valuble info for u.__
