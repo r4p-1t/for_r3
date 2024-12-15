@@ -72,7 +72,18 @@ where Date_format(OrderDate,'%Y-%m')='2024-10';
 select OrderID,CustomerID,OrderDate from Orders
 where  dayofweek(OrderDate) in (1,7);
 
+16:
+SELECT OrderID, CustomerID, OrderDate,
+       TIMESTAMPDIFF(WEEK, OrderDate, CURDATE()) AS WeeksSinceOrder
+FROM Orders;
+
+
 17:
+SELECT o1.OrderID, o2.OrderID, 
+       TIMESTAMPDIFF(DAY, o1.OrderDate, o2.OrderDate) AS DaysDifference
+FROM Orders o1
+JOIN Orders o2 ON o1.CustomerID = o2.CustomerID
+WHERE o1.OrderID < o2.OrderID;
 
 
 18:
@@ -80,7 +91,7 @@ SELECT
     o1.OrderID AS OrderID1,
     o2.OrderID AS OrderID2,
     TIMESTAMPDIFF(HOUR, o1.OrderDate, o2.OrderDate) AS HoursDifference
-FROM 
+FROM  
     Orders o1
 JOIN 
     Orders o2
