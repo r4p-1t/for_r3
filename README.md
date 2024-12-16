@@ -1,4 +1,4 @@
-# for_r3
+
 
 - 
 - __i have sql questions and answers for pre_fs 2 exam. these are the practice problems given in the test 1.
