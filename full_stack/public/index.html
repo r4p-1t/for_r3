@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-stack App</title>
+</head>
+<body>
+    <h1>Full-stack Application</h1>
+
+    <form id="dataForm">
+        <input type="text" id="name" placeholder="Enter name" required>
+        <input type="text" id="description" placeholder="Enter description" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Stored Data</h2>
+    <ul id="dataList"></ul>
+
+    <script>
+        // Function to fetch data from the server and display it
+        async function fetchData() {
+            try {
+                const response = await fetch('http://localhost:5000/api/data');
+                const data = await response.json();
+                const dataList = document.getElementById('dataList');
+                dataList.innerHTML = '';
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name}: ${item.description}`;
+                    dataList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Call fetchData on page load
+        window.onload = fetchData;
+
+        // Function to handle form submission
+        document.getElementById('dataForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+
+            // POST request to add data
+            try {
+                const response = await fetch('http://localhost:5000/api/data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, description })
+                });
+
+                const newData = await response.json();
+                console.log('New data added:', newData);
+
+                // Clear input fields and fetch updated data
+                document.getElementById('name').value = '';
+                document.getElementById('description').value = '';
+                fetchData();
+            } catch (error) {
+                console.error('Error adding data:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+
